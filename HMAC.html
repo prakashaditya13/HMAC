@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>HMAC Hash SHA256 Generation Code</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/0.8.2/forge.all.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/hmac-sha256.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9/enc-base64.min.js"></script>
+	
+	<script type="text/Javascript">
+	
+	//Generate HMAC ALgorithm using FORGE library
+	function generateHash()
+	{
+            var plainText = document.getElementById('plainText').value;
+
+            var secretKey = document.getElementById('secretKey').value;
+
+	    var hmac = forge.hmac.create();  
+            hmac.start('sha128', secretKey);
+            hmac.update(plainText);  
+            var hashText = hmac.digest().toHex();  
+            document.getElementById("hashText").innerHTML = hashText;
+        }
+	//Generate HMAC algorithm using CryptoJS
+	function generateHash1()
+		{
+        	var plainText1 = document.getElementById('plainText1').value;
+            var secretKey1 = document.getElementById('secretKey1').value;
+            
+			var hashText1 = CryptoJS.HmacSHA256(plainText1, secretKey1);   
+
+            //document.getElementById("hashText").innerHTML = CryptoJS.enc.Base64.stringify(hashText);
+            document.getElementById("hashText1").innerHTML = hashText1;
+        }        
+        
+	
+	</script>
+</head>
+<body>
+		<h1>HMAC SHA256 Hash Forge</h1>
+
+    <br><strong>Enter the Sample Text : </strong><input id='plainText' type='text' />
+    
+    <br><br><strong>Enter the Secret Key   : </strong><input id='secretKey' type='text' />
+
+    <br><br><strong>Hashed Text (HMAC SHA256)  : </strong><span id='hashText'></span>
+
+    <br><br><button onclick="generateHash()">Calculate Hash</button><br><br><br><br>
+	
+	
+	<h1>HMAC SHA256 Hash CryptoJS</h1>
+
+	<br><strong>Enter the Sample Text : </strong><input id='plainText1' type='text' />
+
+    <br><br><strong>Enter the Secret Key   : </strong><input id='secretKey1' type='text' />
+
+	<br><br><strong>Hashed Text (HMAC SHA256)  : </strong><span id='hashText1'></span>
+
+	<br><br><button onclick="generateHash1()">Calculate Hash</button>
+
+
+
+</body>
+
+
+
+
+
+
+</html>
